@@ -14,6 +14,22 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+//Checkeo USUARIO
+export const checkUserSession = createAsyncThunk(
+  "auth/checkSession",
+  async (_, { rejectWithValue }) => {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        unsubscribe();
+        if (user) {
+          resolve({ email: user.email });
+        } else {
+          reject(rejectWithValue("No hay sesión activa"));
+        }
+      });
+    });
+  }
+);
 
 // LOGIN
 export const loginUser = createAsyncThunk(
