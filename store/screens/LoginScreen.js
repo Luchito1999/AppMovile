@@ -8,6 +8,11 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { status, error, user } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (user) {
+      navigation.replace("Home");
+    }
+  }, [user]);
 
   const handleLogin = () => {
     dispatch(loginUser({ email, password }));

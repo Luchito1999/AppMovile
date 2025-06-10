@@ -3,6 +3,8 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '../services/firebase';
 import { ref, onValue } from 'firebase/database';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../features/auth/authSlice';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -18,12 +20,12 @@ const HomeScreen = () => {
 
     return () => unsubscribe();
   }, []);
-
-  const handleLogout = () => {
-    auth.signOut().then(() => {
-      navigation.replace('Login');
-    });
-  };
+const dispatch = useDispatch();
+const handleLogout = () => {
+  dispatch(logoutUser()).then(() => {
+    navigation.replace('Login');
+  });
+};
 
   const renderItem = ({ item }) => (
     <TouchableOpacity

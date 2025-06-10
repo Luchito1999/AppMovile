@@ -1,11 +1,11 @@
 // store/App.js
 import React, { useEffect } from "react";
 import { Provider, useDispatch } from "react-redux";
-import AppNavigator from "./navigation/AppNavigator";
-import { store } from "./store";
-import { loadCartFromStorage } from "./features/cart/cartSlice";
-import { checkUserSession } from "./features/auth/authSlice";
-import "./services/firebase";
+import AppNavigator from "./store/navigation/AppNavigator";
+import { store } from "./store/store";
+import { loadCartFromStorage } from "./store/features/cart/cartSlice";
+import { checkUserSession } from "./store/features/auth/authSlice";
+import "./store/services/firebase";
 
 const InitApp = () => {
   const dispatch = useDispatch();

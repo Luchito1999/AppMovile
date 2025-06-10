@@ -17,19 +17,21 @@ export const registerUser = createAsyncThunk(
 //Checkeo USUARIO
 export const checkUserSession = createAsyncThunk(
   "auth/checkSession",
-  async (_, { rejectWithValue }) => {
+  async (_, thunkAPI) => {
     return new Promise((resolve, reject) => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
         unsubscribe();
         if (user) {
           resolve({ email: user.email });
         } else {
-          reject(rejectWithValue("No hay sesión activa"));
+          // FIX: rechazar como un error normal
+          reject("No hay sesión activa");
         }
       });
-    });
+    }).catch((error) => thunkAPI.rejectWithValue(error));
   }
 );
+
 
 // LOGIN
 export const loginUser = createAsyncThunk(
